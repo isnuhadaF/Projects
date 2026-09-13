@@ -12,7 +12,6 @@ public class Main {
                 "Main Branch, 312 Herbert Macaulay Way, Sabo Yaba, Lagos.",
                 "03293828343", new ArrayList<>(), cashiers);
 
-        // --- Login (unchanged) ---
         System.out.print("Cashier ID: ");
         int id = Integer.parseInt(scanner.nextLine());
         System.out.print("Password: ");
@@ -24,12 +23,10 @@ public class Main {
             return;
         }
 
-        // --- Customer name ---
         System.out.print("What is the customer's Name? ");
         String customerName = scanner.nextLine();
         Customer customer = store.checkout(customerName);
 
-        // --- Item entry loop, matching the screenshot exactly ---
         String addMore = "yes";
         while (addMore.equalsIgnoreCase("yes")) {
             System.out.print("What did the user buy? ");
@@ -47,13 +44,10 @@ public class Main {
             System.out.print("Add more Items? ");
             addMore = scanner.nextLine();
         }
-
-        // --- Discount, entered directly as the screenshot shows ---
         System.out.print("How much discount will he get? ");
         double discountInput = Double.parseDouble(scanner.nextLine());
         customer.getCustomerCart().setDiscountAmount(discountInput / 100.0);
 
-        // --- Payment + receipt ---
         System.out.print("How much did the customer give to you? ");
         double amountGiven = Double.parseDouble(scanner.nextLine());
         cashier.printReceipt(store, customer, amountGiven);
