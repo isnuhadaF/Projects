@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Semi-Colon E-commerce/.idea/PythonProject.iml" filepath="$PROJECT_DIR$/../Semi-Colon E-commerce/.idea/PythonProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Student Grade Manager/.idea/Student Grade Manager.iml" filepath="$PROJECT_DIR$/../Student Grade Manager/.idea/Student Grade Manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../credit_card_validator/.idea/credit_card_validator.iml" filepath="$PROJECT_DIR$/../credit_card_validator/.idea/credit_card_validator.iml" />
+    </modules>
+  </component>
+</project>

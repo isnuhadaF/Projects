@@ -1,29 +1,16 @@
 public class Student {
-    private String name;
-    private Score[] studentScores;
+    private final String studentName;
+    private int studentScore;
 
-    public Student(String name, int numberOfSubjects) {
-        this.name = name;
-        this.studentScores = new Score[numberOfSubjects];
-
+    public Student(String studentName) {
+        this.studentName = studentName;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Score getScore(int subject) {
-        this.studentScores[subject] = studentScores[subject];
-
-        return studentScores[subject];
-    }
-
-    public void setScore(int studentScore, int subject) {
-        studentScores[subject] = new Score(studentScore);
-        subject++;
+    public int getStudentScore() {
+        return studentScore;
     }
 }

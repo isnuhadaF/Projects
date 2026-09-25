@@ -1,25 +1,19 @@
 public class Subject {
     String name;
-    private int totalScore;
-    private int averageScore;
 
     public Subject(String name) {
         this.name = name;
     }
 
-
-    public int totalScore(int[] scores) {
-        int totalScores = 0;
-        for (int score : scores) {
-            totalScores += score;
+    public int totalScore(int[] studentScores) {
+        int totalScore = 0;
+        for (int score : studentScores) {
+            totalScore += score;
         }
-
-        return totalScores;
+        return totalScore;
     }
 
-    public int averageScore(int[] scores) {
-        int averageScore = totalScore(scores)/scores.length;
-
-        return averageScore;
+    public int averageScore(int[] studentScores) {
+        return totalScore(studentScores)/studentScores.length;
     }
 }

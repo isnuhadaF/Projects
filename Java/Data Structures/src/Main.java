@@ -50,8 +50,8 @@ void main(String[] args) {
     numbers.add(30);
     numbers.add(40);
 
-    int index = numbers.indexOf(20);   //Get the index of the element I want to remove and assign it to a variable
-    numbers.remove(index);    //Remove the element in that index
+    int index = numbers.indexOf(20);
+    numbers.remove(index);
     IO.println(numbers.toString());
 
     //(6)
@@ -65,12 +65,12 @@ void main(String[] args) {
 
 
    //LinkedList
-    List<String> asList = new LinkedList<>();      // you only want List behavior
-    Deque<String> asDeque = new LinkedList<>();    // you want both-ends access
-    Queue<String> asQueue = new LinkedList<>();    // you want FIFO only
+    List<String> asList = new LinkedList<>();
+    Deque<String> asDeque = new LinkedList<>();
+    Queue<String> asQueue = new LinkedList<>();
 
 
-
+    //
 
 
 

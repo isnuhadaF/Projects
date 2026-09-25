@@ -50,6 +50,7 @@ people = {'Dotun': 27,
           }
 print(list(filter(dict_filter, people)))
 
+lambda x, y: x > y
 
 
 def reduce_list(number, next_number):
@@ -66,13 +67,20 @@ print(reduce(reduce_product, list5))
 
 
 
-def find_largest(numbers: list):
-    return list(reduce(lambda current_largest, next_item: next_item if next_item > current_largest else current_largest, numbers))
-print(list(find_largest))
+def find_largest():
+    return [1, 2, 3, 4, 5]
+
+try:
+    print(reduce(lambda largest, next_item: next_item if next_item > largest else largest, find_largest))
+except TypeError: "This means the code did not work"
 
 
 
-def string_concatenate():
-    return
-
-print(list(reduce(string_concatenate, ['Hello', '', 'World', 'Something'])))
+def concatenate(word, next_word):
+    if next_word == "":
+        return word
+    if word == "":
+        return next_word
+    return word + " " + next_word
+words = ['Hello', '', '', '', 'World', '', '', 'Something']
+print(reduce(concatenate, words))

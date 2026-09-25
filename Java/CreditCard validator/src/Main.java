@@ -7,13 +7,13 @@ public class Main {
         System.out.print("Enter a credit card number: ");
         String cardNumber = input.nextLine().trim();
 
-        String carLength = LuhnCheck.getCardLength(cardNumber);
+        String cardLength = LuhnCheck.getCardLength(cardNumber);
         String cardType = LuhnCheck.getCardType(cardNumber);
         boolean valid = LuhnCheck.isValid(cardNumber);
 
         System.out.println("Card type: " + cardType);
         System.out.println("Status: " + (valid ? "Valid" : "Invalid"));
-        System.out.println("Length: " + carLength);
+        System.out.println("Length: " + cardLength);
 
     }
 }

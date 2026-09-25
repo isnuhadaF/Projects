@@ -23,8 +23,8 @@ def is_valid(card_number):
     if length < 13 or length > 16:
         return False
 
-    sum_of_doubled = 0  # Step 1 + 2
-    sum_of_odd = 0       # Step 3
+    sum_of_doubled = 0
+    sum_of_odd = 0
 
     for i in range(length - 1, -1, -1):
         digit = int(card_number[i])
@@ -33,13 +33,12 @@ def is_valid(card_number):
         if position_from_right % 2 == 0:
             doubled = digit * 2
             if doubled > 9:
-                doubled -= 9  # same as summing its two digits
+                doubled -= 9
             sum_of_doubled += doubled
         else:
             sum_of_odd += digit
 
-    total = sum_of_doubled + sum_of_odd  # Step 4
-    return total % 10 == 0                # Step 5
+    total = sum_of_doubled + sum_of_odd
 
 
 def main():

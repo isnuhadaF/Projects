@@ -12,6 +12,17 @@ void main() {
     IO.println(menu);
     String enter = input.nextLine();
 
+
+    IO.println("Enter your name, ID, and password");
+    String teacherName = input.nextLine();
+    int teacherID = input.nextInt();
+    String teacherPassword = input.nextLine();
+    Teacher teacher = new Teacher(teacherName, teacherID, teacherPassword);
+
+    if (teacherName.equals(teacher.getTeacherName()) && teacherID == teacher.getTeacherID() && teacherPassword.equals(teacher.getTeacherPassword())) {
+
+    }
+
     IO.println("How many students are you grading?");
     int numberOfStudents = input.nextInt();
     input.nextLine();
