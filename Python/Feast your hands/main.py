@@ -59,7 +59,6 @@ list4 = [1, 2, 3, 4, 5]
 print(reduce(reduce_list, list4))
 
 
-
 def reduce_product(number, next_number):
     return number * next_number
 list5 = [1, 2, 3, 4, 5]
