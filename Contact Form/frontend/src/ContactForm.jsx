@@ -1,40 +1,52 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function ContactForm() {
-  // STATE: React remembers these between renders.
-  // useState("") returns [current value, function that changes it].
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
-  function handleSubmit(event) {
-    // 1. Stop the browser from reloading the page (its default for forms).
+  // async lets us use `await`, which pauses THIS function until the
+  // server answers. The rest of the page keeps working while it waits.
+  async function handleSubmit(event) {
     event.preventDefault()
 
-    // 2. trim() removes spaces at both ends, so "   " becomes "".
-    //    We check the trimmed copy, but we do not change what the user typed.
+    // Clear old messages so a stale error never sits next to a new success.
+    setError('')
+    setSuccess('')
+
     const anyEmpty =
       name.trim() === '' || email.trim() === '' || message.trim() === ''
 
-    // 3. Bad input: show the error and STOP. The later Axios request must not run.
+    // Guard: bad input stops here. No request is sent.
     if (anyEmpty) {
       setError('All fields are required')
       return
     }
 
-    // 4. Good input: clear any old error.
-    //    (The Axios POST goes here in the next test.)
-    setError('')
+    try {
+      // Axios turns this object into JSON. Flask reads these 3 keys.
+      const response = await axios.post('/api/submit', { name, email, message })
+
+      // Axios only gets here when the status is 2xx (your 201).
+      setSuccess(response.data.message)
+      setName('')
+      setEmail('')
+      setMessage('')
+    } catch (err) {
+      // Axios jumps here on 400 and 500, and on network failure.
+      // With an HTTP error, the server's JSON is in err.response.data.
+      // With no response (server down), err.response is undefined,
+      // and `?.` returns undefined instead of crashing.
+      setError(err.response?.data?.error ?? 'Could not reach the server')
+    }
   }
 
   return (
-    // onSubmit runs handleSubmit when the button is clicked.
-    // noValidate turns off the browser's own checks so ours run instead.
     <form noValidate onSubmit={handleSubmit}>
       <label htmlFor="name">Name</label>
-      {/* value = what React remembers, onChange = update it on every keystroke.
-          event.target.value is the full text currently in the box. */}
       <input
         id="name"
         type="text"
@@ -59,9 +71,8 @@ export default function ContactForm() {
 
       <button type="submit">Submit</button>
 
-      {/* `error && ...` shows the <p> only when error is not "".
-          An empty string counts as false, so nothing is drawn. */}
-      {error && <p>{error}</p>}
+      {error && <p role="alert">{error}</p>}
+      {success && <p role="status">{success}</p>}
     </form>
   )
 }
