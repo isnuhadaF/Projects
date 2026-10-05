@@ -1,3 +1,4 @@
+import os
 import re
 from flask import Flask, request, jsonify
 import mysql.connector
@@ -10,7 +11,7 @@ EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'YOUR_MYSQL_PASSWORD',  # Replace with your MySQL password
+    'password': os.environ.get('DB_PASSWORD'),  # Replace with your MySQL password
     'database': 'contact_form'
 }
 
