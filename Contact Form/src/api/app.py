@@ -11,7 +11,7 @@ EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': os.environ.get('DB_PASSWORD', ''),  # Replace with your MySQL password
+    'password': os.environ.get('DB_PASSWORD', ''), # read from the shell, never from a file
     'database': 'contact_form'
 }
 
@@ -54,6 +54,44 @@ def handle_submission():
         return jsonify({'error': 'Database transaction failed'}), 500
 
     finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
+
+
+@app.route('/api/submissions', methods=['GET'])
+def list_submissions():
+    conn = None
+    cursor = None
+    try:
+        conn = get_db_connection()
+        # dictionary=True gives each row as {'id': 2, 'name': 'Ada', ...}
+        # instead of a plain tuple, so jsonify can use the column names.
+        cursor = conn.cursor(dictionary=True)
+
+        # No user input in this query, so there is nothing to inject.
+        cursor.execute(
+            "SELECT id, name, email, message, created_at "
+            "FROM submissions ORDER BY created_at DESC, id DESC"
+        )
+        rows = cursor.fetchall()
+
+        # A datetime object is not JSON. Turn it into text like
+        # '2026-10-05T09:44:17'. The test checks this exact format.
+        for row in rows:
+            row['created_at'] = row['created_at'].isoformat()
+
+        return jsonify(rows), 200
+
+    except mysql.connector.Error:
+        # Fixed message only. Never send str(err): MySQL errors can leak
+        # host, user and table names.
+        return jsonify({'error': 'Could not load submissions'}), 500
+
+    finally:
+        # Same pattern as your POST route. If the connection itself failed,
+        # conn is still None, so there is nothing to close.
         if cursor:
             cursor.close()
         if conn and conn.is_connected():
